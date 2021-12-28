@@ -20,7 +20,7 @@ https://github.com/aslafy-z/helm-git
 
 ```bash
 helm plugin install https://github.com/aslafy-z/helm-git --version 0.11.1
-helm repo add slcnx-blog git+ssh://git@github.com/slcnx/helm_blog_deploy@install?ref=main
+helm repo add slcnx-blog git+ssh://git@github.com/slcnx/helm_blog_deploy@install/blog?ref=main
 "slcnx-blog" has been added to your repositories
 ```
 
@@ -32,7 +32,7 @@ NAME            URL
 slcnx-blog      git+ssh://git@github.com/slcnx/helm_blog_deploy@install?ref=main
 root@mykernel:~# helm search repo slcnx-blog
 NAME                            CHART VERSION   APP VERSION     DESCRIPTION
-slcnx-blog/myblog_deploy        0.1.0           1.16.0          A Helm chart for Kubernetes
+slcnx-blog/blog 0.1.0           1.16.0          A Helm chart for Kubernetes
 ```
 
 ## 发布一个主版本v1
@@ -40,13 +40,13 @@ slcnx-blog/myblog_deploy        0.1.0           1.16.0          A Helm chart for
 1. 查看版本的模板
 
    ```
-    helm template v1 -n slcnx-prod --create-namespace slcnx-blog/myblog_deploy
+    helm template v1 -n slcnx-prod --create-namespace slcnx-blog/blog
    ```
 
 2. 安装
 
     ```bash
-    helm install v1 -n slcnx-prod --create-namespace https://github.com/slcnx/helm_blog_deploy
+    helm install v1 -n slcnx-prod --create-namespace --set image.tag="autobuild-2021-12-25-22-03-32" slcnx-blog/blog
     ```
 
 ## 查看历史
@@ -58,7 +58,7 @@ helm ls -n slcnx-prod
 ## 更新主版本的补丁
 
 ```bash
-helm upgrade install  -n slcnx-prod --set image.tag="" https://github.com/slcnx/helm_blog_deploy
+helm upgrade   -n slcnx-prod --set image.tag="autobuild-2021-12-21-22-04-40" v1 slcnx-blog/blog
 ```
 
 ## 回滚上一个版本
